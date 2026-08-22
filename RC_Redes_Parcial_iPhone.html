@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0f1e">
+<title>RC // Redes — Primer Parcial</title>
+<style>
+:root{
+  --bg:#070b14;--panel:#0e1525;--panel2:#131d31;--text:#f4f7ff;--muted:#9aa8c5;
+  --accent:#7cf7c8;--accent2:#7aa7ff;--warn:#ffc857;--bad:#ff758f;--good:#78e6a9;
+  --line:#24314d;--shadow:0 18px 60px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+radial-gradient(circle at 10% 0%,#16233f 0,transparent 32rem),
+radial-gradient(circle at 95% 12%,#132f35 0,transparent 28rem),
+var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{touch-action:manipulation}
+.app{max-width:1050px;margin:auto;padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.top{position:sticky;top:0;z-index:20;background:rgba(7,11,20,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08);padding:max(10px,env(safe-area-inset-top)) 16px 10px}
+.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:grid;place-items:center;color:#06111a;font-weight:900;box-shadow:0 8px 30px rgba(122,167,255,.25)}
+.brand b{font-size:14px}.brand small{display:block;color:var(--muted);font-size:11px}
+.progress-mini{font-size:12px;color:var(--muted)}
+.hero{padding:34px 18px 18px}.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:800}
+h1{font-size:clamp(36px,9vw,72px);line-height:.96;margin:12px 0 14px;letter-spacing:-2px}
+.hero p{max-width:700px;color:var(--muted);font-size:16px;line-height:1.55}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.badge{padding:9px 12px;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;font-size:12px;color:#cad3e6}
+.section{padding:18px}.section h2{font-size:26px;margin:0 0 8px}.section>p{color:var(--muted);line-height:1.5;margin-top:0}
+.priority{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.priority .box{background:linear-gradient(180deg,rgba(124,247,200,.09),rgba(255,255,255,.02));border:1px solid #285147;border-radius:18px;padding:16px}.box b{display:block;margin-bottom:6px}.box span{color:var(--muted);font-size:13px;line-height:1.4}
+.exam-strip{background:linear-gradient(135deg,#121c34,#0e2a2b);border:1px solid #2b4f5c;border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.exam-strip strong{font-size:21px}.exam-strip p{color:var(--muted);margin:6px 0 14px;line-height:1.45}
+.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:800;background:var(--accent);color:#04110c;min-height:48px}
+.btn.secondary{background:#1a2740;color:var(--text);border:1px solid var(--line)}
+.btn.full{width:100%}
+.tabs{display:flex;gap:8px;overflow:auto;padding:4px 18px 12px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;border:1px solid var(--line);background:#0f1729;color:#cbd5e8;border-radius:999px;padding:11px 14px}.tab.on{background:var(--text);color:#08101c;border-color:var(--text);font-weight:800}
+.flash{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:linear-gradient(180deg,#111a2c,#0d1423);border:1px solid var(--line);border-radius:18px;padding:16px;min-height:145px;position:relative;overflow:hidden}.card .num{position:absolute;right:12px;top:10px;color:#51617f;font-size:12px}.card .q{font-size:14px;line-height:1.45;color:#cbd5e8;padding-right:20px}.card .ans{margin-top:12px;font-size:18px;font-weight:850;color:var(--accent)}
+.group{margin-bottom:12px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0d1424}.group summary{padding:16px;font-weight:850;cursor:pointer;list-style:none;display:flex;justify-content:space-between}.group summary::-webkit-details-marker{display:none}.group summary:after{content:"＋";color:var(--accent)}.group[open] summary:after{content:"−"}
+.qa{border-top:1px solid var(--line);padding:13px 16px}.qa b{display:block;font-size:14px;line-height:1.35}.qa span{display:block;color:var(--muted);margin-top:5px;line-height:1.4;font-size:13px}
+.quizbox{background:#0d1527;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.quiztop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.quiztop span{color:var(--muted);font-size:12px}.quizq{font-size:21px;line-height:1.35;font-weight:850;margin:10px 0 16px}.opts{display:grid;gap:9px}.opt{width:100%;text-align:left;border:1px solid var(--line);background:#121c31;color:var(--text);border-radius:14px;padding:14px;min-height:50px}.opt.sel{border-color:var(--accent2);background:#172746}.opt.correct{border-color:var(--good);background:#123023}.opt.wrong{border-color:var(--bad);background:#321523}.feedback{margin-top:13px;padding:12px;border-radius:14px;background:#111b2d;color:#c8d4eb;line-height:1.45;font-size:14px}.hidden{display:none!important}
+.score{font-size:52px;font-weight:900;letter-spacing:-2px;color:var(--accent)}.scoreline{display:flex;align-items:end;justify-content:space-between;gap:12px}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:30;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(8,12,21,.86);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.08)}
+.bottomin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.navbtn{border:0;background:transparent;color:#8795b3;padding:8px 3px;border-radius:12px;font-size:11px}.navbtn b{display:block;font-size:20px;margin-bottom:2px}.navbtn.on{background:#141f34;color:var(--accent)}
+.screen{display:none}.screen.on{display:block}.search{width:100%;border:1px solid var(--line);background:#0c1424;color:var(--text);border-radius:14px;padding:14px 15px;outline:none}.search:focus{border-color:var(--accent2)}
+.kicker{border-left:4px solid var(--warn);padding:10px 12px;background:#261f13;border-radius:0 12px 12px 0;color:#f5dfac;font-size:13px;line-height:1.45;margin:16px 0}
+@media(max-width:720px){.priority{grid-template-columns:1fr}.flash{grid-template-columns:1fr}.section{padding:14px}.hero{padding:26px 14px 14px}h1{font-size:42px}.brand small{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="topin">
+  <div class="brand"><div class="logo">RC</div><div><b>Primer Parcial · Redes</b><small>modo estudio móvil</small></div></div>
+  <div class="progress-mini" id="mini">0 repasadas</div>
+</div></div>
+
+<div class="app">
+  <section id="home" class="screen on">
+    <div class="hero">
+      <div class="eyebrow">Tu examen manda</div>
+      <h1>Estudia lo que<br>realmente te van a preguntar.</h1>
+      <p>Primero van los 20 conceptos que aparecen en la foto del examen. Después tienes tu guía completa y, al final, práctica corta para no aburrirte.</p>
+      <div class="badges"><span class="badge">📱 iPhone compatible</span><span class="badge">⚡ Funciona sin internet</span><span class="badge">🧠 Repaso activo</span></div>
+    </div>
+    <div class="section">
+      <div class="priority">
+        <div class="box"><b>1 · Prioridad máxima</b><span>Los 20 conceptos del examen: protocolos, PDU, OSI, LAN/WAN, switch/router, VLAN.</span></div>
+        <div class="box"><b>2 · Refuerzo</b><span>Tus preguntas del PDF, ordenadas por tema y sin meter relleno externo.</span></div>
+        <div class="box"><b>3 · Comprobación</b><span>Mini-quizzes y simulacro para saber qué se te está escapando.</span></div>
+      </div>
+    </div>
+    <div class="section"><div class="exam-strip">
+      <strong>🔥 Modo “lo que sale”</strong>
+      <p>Memoriza primero estas asociaciones exactas. Son la base más directa de la foto del parcial.</p>
+      <button class="btn" onclick="go('core')">Ver los 20 conceptos</button>
+    </div></div>
+  </section>
+
+  <section id="core" class="screen">
+    <div class="section">
+      <div class="eyebrow">Prioridad 1</div><h2>Los 20 del examen</h2>
+      <p>Tócalos mentalmente como “definición → concepto”. No leas la respuesta hasta intentar decirla.</p>
+      <div class="kicker">Tip: para el examen conceptual, piensa en palabras clave: <b>trama = enlace</b>, <b>paquete = red</b>, <b>segmento = transporte</b>, <b>datos = aplicación</b>.</div>
+      <div class="flash" id="coreCards"></div>
+    </div>
+  </section>
+
+  <section id="guide" class="screen">
+    <div class="section">
+      <div class="eyebrow">Prioridad 2</div><h2>Tu guía, ordenada</h2>
+      <p>Está basada en tus preguntas. Usa el buscador si quieres encontrar algo rápido.</p>
+      <input id="search" class="search" placeholder="Buscar: router, OSI, telnet..." oninput="filterGuide(this.value)">
+      <div style="height:12px"></div><div id="guideList"></div>
+    </div>
+  </section>
+
+  <section id="quiz" class="screen">
+    <div class="section">
+      <div class="eyebrow">Prioridad 3</div><h2>Prueba rápida</h2>
+      <p>10 preguntas aleatorias. Si fallas, te explica la asociación correcta.</p>
+      <div class="quizbox" id="quizBox"></div>
+    </div>
+  </section>
+</div>
+
+<div class="bottomnav"><div class="bottomin">
+  <button class="navbtn on" data-go="home" onclick="go('home',this)"><b>⌂</b>Inicio</button>
+  <button class="navbtn" data-go="core" onclick="go('core',this)"><b>⚡</b>Examen</button>
+  <button class="navbtn" data-go="guide" onclick="go('guide',this)"><b>☰</b>Guía</button>
+  <button class="navbtn" data-go="quiz" onclick="go('quiz',this)"><b>✓</b>Prueba</button>
+</div></div>
+
+<script>
+const core = [["Son las reglas que seguirán las comunicaciones.", "Protocolos"], ["Es el proceso mediante el cual la información se convierte en otra forma aceptable para la transmisión.", "Codificación"], ["Administra la velocidad de transmisión de datos y define cuánta información se puede enviar y la velocidad a la que se puede entregar.", "Control de flujo"], ["PDU de la capa de enlace de datos.", "Trama"], ["PDU de la capa de red.", "Paquete"], ["PDU de la capa de transporte.", "Segmento"], ["PDU de la capa de aplicación.", "Datos"], ["Red de área amplia.", "WAN"], ["Dispositivo de capa 2 que retransmite tramas.", "Switch"], ["Dispositivo de capa 3 que retransmite paquetes.", "Router"], ["Es un término para crear redes lógicamente independientes dentro de una misma red física.", "VLAN"], ["Red de escala global.", "Internet"], ["Red de área local.", "LAN"], ["Capa del modelo OSI que contiene protocolos utilizados para comunicaciones proceso a proceso.", "Capa de Aplicación"], ["Capa del modelo OSI que proporciona una representación común de los datos transferidos entre los servicios de la capa de aplicación.", "Capa de Presentación"], ["Capa del modelo OSI que proporciona servicios a la capa de presentación y administra el intercambio de datos.", "Capa de Sesión"], ["Capa del modelo OSI que define los servicios para segmentar, transferir y reensamblar los datos para las comunicaciones individuales.", "Capa de Transporte"], ["Capa del modelo OSI que proporciona servicios para intercambiar las porciones de datos individuales en la red.", "Capa de Red"], ["Capa del modelo OSI que describe métodos para intercambiar tramas de datos entre dispositivos en un medio común.", "Capa de Enlace de Datos"], ["Capa del modelo OSI que describe los medios para activar, mantener y desactivar las conexiones físicas.", "Capa Física"]];
+const groups = {"Fundamentos": [["¿Cómo se le llama a cada computadora en una red?", "Host o dispositivo final"], ["¿Qué es una red punto a punto (peer-to-peer)?", "Una red donde un dispositivo puede ser cliente y servidor al mismo tiempo."], ["¿Para qué redes se recomienda peer-to-peer?", "Redes muy pequeñas."], ["¿Qué es un terminal en una red?", "El punto donde un mensaje se origina o se recibe."], ["¿Qué son los dispositivos intermedios?", "Equipos que interconectan dispositivos finales y pueden dirigir, regenerar o filtrar señales."], ["Ejemplos de dispositivos intermedios", "Switches, puntos de acceso y routers."], ["Medios de transmisión principales", "Cobre, fibra óptica e inalámbrico."], ["¿Qué significa NIC?", "Tarjeta de interfaz de red (Network Interface Card)."], ["¿Cuál es la función de una NIC?", "Conectar físicamente un dispositivo a la red."]], "Topologías y alcance": [["¿Cuáles son las dos topologías de red?", "Física y lógica."], ["Topología física", "Ilustra la ubicación física de dispositivos y la instalación de cables."], ["Topología lógica", "Describe cómo viajan los datos y cómo se accede al medio."], ["¿Cuáles son las topologías físicas base?", "Bus, estrella y anillo."], ["Topologías físicas de alta complejidad", "Malla (mesh) y árbol (tree)."], ["¿Cómo se clasifican por alcance?", "PAN, LAN, MAN y WAN."], ["PAN", "Red de área personal, aproximadamente 10 m."], ["LAN", "Red de área local, edificio; en la guía aparece como referencia hasta 2 km."], ["MAN", "Red de área metropolitana, ciudad; 5–50 km en la guía."], ["WAN", "Red de área amplia, regiones o continentes; más de 50 km en la guía."]], "Arquitectura y seguridad": [["4 pilares de una arquitectura confiable", "Tolerancia a fallas, escalabilidad, seguridad y calidad de servicio (QoS)."], ["Objetivo de la tolerancia a fallas", "Disminuir el impacto de una falla de hardware."], ["¿Qué hace QoS?", "Administra prioridades cuando la demanda supera el ancho de banda."], ["3 objetivos de seguridad", "Confidencialidad, integridad y disponibilidad."], ["Amenazas", "Externas e internas."], ["Seguridad básica hogar/PyME", "Antivirus y firewall básico."], ["Seguridad empresarial", "Firewall dedicado, ACL, IPS y VPN."]], "Dispositivos": [["Hub", "Capa física. Repite la señal a todos los puertos sin filtrar."], ["Switch", "Capa de enlace. Usa direcciones MAC y envía la trama al puerto correspondiente."], ["Router", "Capa de red. Interconecta redes y determina la mejor ruta para los paquetes."], ["Access Point", "Permite conexión inalámbrica mediante radiofrecuencia."], ["Módem", "Modula y demodula señales para conectar la red local con el ISP."], ["Repetidor", "Amplifica o regenera señales para extender el alcance."], ["Firewall", "Filtra tráfico entrante y saliente según reglas."]], "Modelo OSI": [["7 capas OSI", "Física, Enlace de datos, Red, Transporte, Sesión, Presentación, Aplicación."], ["Capa 1 — Física", "Bits, señales, medios y características mecánicas/eléctricas."], ["Capa 2 — Enlace", "Tramas y direcciones MAC."], ["Capa 3 — Red", "Paquetes, IP y selección de ruta."], ["Capa 4 — Transporte", "Segmenta y ofrece transferencia extremo a extremo; TCP/UDP."], ["Capa 5 — Sesión", "Administra y regula el diálogo entre aplicaciones."], ["Capa 6 — Presentación", "Traduce, formatea, comprime y cifra."], ["Capa 7 — Aplicación", "Interfaz entre aplicaciones del usuario y los servicios de red."], ["Beneficios de arquitectura en capas", "Interoperabilidad y aislamiento de fallas."]], "Protocolos y TCP/IP": [["3 elementos de una comunicación", "Fuente, destino y canal."], ["¿Qué es un protocolo?", "Conjunto de reglas que siguen las comunicaciones."], ["Requisitos de un protocolo", "Emisor, receptor, idioma, gramática, velocidad, entrega y confirmación."], ["Requisitos de protocolos de red", "Codificación, formato y encapsulamiento, tamaño del mensaje."], ["¿Qué es una suite de protocolos?", "Grupo de protocolos interrelacionados necesarios para una función de comunicación."], ["Capas TCP/IP", "Acceso a la red, Internet, Transporte y Aplicación."], ["Segmentación", "Dividir los mensajes en unidades más pequeñas."], ["Multiplexación", "Tomar múltiples flujos segmentados y entrelazarlos."], ["Secuenciación", "Numerar segmentos para volver a ensamblarlos en destino."], ["PDU", "Unidad de datos del protocolo."]], "Acceso y Cisco IOS": [["Shell", "Interfaz de usuario para solicitar tareas específicas del equipo."], ["Kernel", "Comunica hardware y software y administra recursos."], ["GUI", "Entorno de iconos, menús y ventanas."], ["Métodos de acceso", "Consola, Secure Shell (SSH) y Telnet."], ["Consola", "Puerto físico de administración para mantenimiento."], ["SSH", "Conexión CLI remota segura."], ["Telnet", "Conexión CLI remota insegura."], ["Modos de configuración", "EXEC, privilegiado, global, línea e interfaz."], ["EXEC", "Acceso limitado a comandos básicos; indicador >."], ["Privilegiado", "Acceso a todos los comandos y funciones; indicador #."], ["Global", "Opciones generales de configuración; (config)."], ["Línea", "Configura consola, SSH, Telnet o aux; (config-line)."], ["Interfaz", "Configura un puerto de switch o interfaz de router; (config-if)."]]};
+let reviewed = JSON.parse(localStorage.getItem('rc_reviewed')||'[]');
+
+function go(id,btn){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('on',x.id===id));
+  document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('on',x.dataset.go===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='quiz') startQuiz();
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function renderCore(){
+  coreCards.innerHTML=core.map((x,i)=>`<div class="card" onclick="mark(${i})">
+    <span class="num">#${i+1}</span><div class="q">${esc(x[0])}</div>
+    <div class="ans">${esc(x[1])}</div>
+    <div style="margin-top:12px;font-size:11px;color:${reviewed.includes(i)?'var(--good)':'#60708e'}">${reviewed.includes(i)?'✓ repasado':'toca para marcar'}</div>
+  </div>`).join('');
+  mini.textContent=reviewed.length+' repasadas';
+}
+function mark(i){
+  if(reviewed.includes(i)) reviewed=reviewed.filter(x=>x!==i); else reviewed.push(i);
+  localStorage.setItem('rc_reviewed',JSON.stringify(reviewed));renderCore();
+}
+function renderGuide(filter=''){
+  let f=filter.trim().toLowerCase(), out='';
+  Object.entries(groups).forEach(([name,items])=>{
+    let arr=items.filter(([q,a])=>!f||(q+' '+a).toLowerCase().includes(f));
+    if(!arr.length)return;
+    out+=`<details class="group" ${f?'open':''}><summary>${esc(name)} <span>${arr.length}</span></summary>`+
+      arr.map(([q,a])=>`<div class="qa"><b>${esc(q)}</b><span>${esc(a)}</span></div>`).join('')+`</details>`;
+  });
+  guideList.innerHTML=out||'<p style="color:var(--muted)">No encontré ese término en tu guía.</p>';
+}
+function filterGuide(v){renderGuide(v)}
+
+let quiz=[],qi=0,score=0,selected=null,locked=false;
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startQuiz(){
+  let pool=shuffle(core.map((x,i)=>({i,q:x[0],a:x[1]}))).slice(0,10);
+  quiz=pool.map(item=>{
+    let wrong=shuffle(core.filter((_,j)=>j!==item.i).map(x=>x[1]).filter((v,i,a)=>a.indexOf(v)===i)).slice(0,3);
+    return {...item,opts:shuffle([item.a,...wrong])};
+  });
+  qi=0;score=0;selected=null;locked=false;renderQuiz();
+}
+function renderQuiz(){
+  if(qi>=quiz.length){
+    let pct=Math.round(score/quiz.length*100);
+    quizBox.innerHTML=`<div class="eyebrow">Resultado</div><div class="scoreline"><div><div class="score">${score}/10</div><div style="color:var(--muted)">${pct>=80?'Vas muy bien.':pct>=60?'Ya vas agarrando ritmo.':'Conviene repasar los 20 del examen.'}</div></div><span style="font-size:28px">${pct>=80?'🔥':pct>=60?'🧠':'📚'}</span></div><div style="height:18px"></div><button class="btn full" onclick="startQuiz()">Otra ronda</button>`;
+    return;
+  }
+  const q=quiz[qi];
+  quizBox.innerHTML=`<div class="quiztop"><span>Pregunta ${qi+1} de 10</span><span>Puntaje ${score}</span></div>
+  <div class="quizq">${esc(q.q)}</div>
+  <div class="opts">${q.opts.map((o,i)=>`<button class="opt" onclick="pick(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join('')}</div>
+  <div id="fb"></div><div style="height:12px"></div><button id="nextBtn" class="btn full hidden" onclick="nextQ()">Siguiente</button>`;
+}
+function pick(i){
+  if(locked)return;locked=true;
+  const q=quiz[qi], buttons=[...document.querySelectorAll('.opt')], chosen=q.opts[i], ok=chosen===q.a;
+  if(ok)score++;
+  buttons.forEach((b,j)=>{if(q.opts[j]===q.a)b.classList.add('correct'); else if(j===i)b.classList.add('wrong')});
+  fb.innerHTML=`<div class="feedback"><b>${ok?'✓ Correcto':'✕ Era: '+esc(q.a)}</b><br>${ok?'Bien asociada la definición.':'Fíjate en las palabras clave de la definición y vuelve a relacionarla con la capa o concepto.'}</div>`;
+  nextBtn.classList.remove('hidden');
+}
+function nextQ(){qi++;selected=null;locked=false;renderQuiz()}
+renderCore();renderGuide();
+</script>
+</body>
+</html>

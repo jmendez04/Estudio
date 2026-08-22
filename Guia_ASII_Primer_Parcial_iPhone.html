@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>AS II · Primer Parcial — Guía interactiva</title>
+<style>
+:root{
+  --bg:#08111f; --panel:#0e1a2b; --panel2:#122238; --ink:#eef7ff; --muted:#9db1c6;
+  --line:#203650; --lime:#b7ff5a; --cyan:#4de4ff; --amber:#ffc857; --danger:#ff6b7c;
+  --ok:#67e8a5; --shadow:0 18px 50px rgba(0,0,0,.28); --r:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:
+  radial-gradient(circle at 10% 0%,rgba(77,228,255,.10),transparent 28%),
+  radial-gradient(circle at 90% 10%,rgba(183,255,90,.09),transparent 24%),var(--bg);
+  color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;padding-bottom:calc(84px + env(safe-area-inset-bottom));
+}
+button,input,select{font:inherit}
+.wrap{width:min(100%,1080px);margin:auto;padding:0 14px}
+.hero{padding:calc(24px + env(safe-area-inset-top)) 0 18px}
+.hero-box{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:28px;padding:24px;background:linear-gradient(145deg,#0c1b2f,#0a1524);box-shadow:var(--shadow)}
+.hero-box:after{content:"";position:absolute;inset:auto -50px -80px auto;width:220px;height:220px;border:28px solid rgba(183,255,90,.08);border-radius:50%}
+.kicker{font-size:.78rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+h1{margin:7px 0 8px;font-size:clamp(2rem,10vw,4.2rem);line-height:.96;letter-spacing:-.04em}
+.hero p{color:var(--muted);margin:0;max-width:760px}.accent{color:var(--lime)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{border:1px solid var(--line);background:#0b1727;border-radius:999px;padding:7px 10px;color:#c7d7e7;font-size:.82rem;font-weight:750}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(8,17,31,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(32,54,80,.75);padding-top:env(safe-area-inset-top)}
+.topbar .inner{display:flex;gap:10px;align-items:center;padding:10px 14px;max-width:1080px;margin:auto}.progress{height:10px;flex:1;background:#13233a;border:1px solid var(--line);border-radius:99px;overflow:hidden}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--lime));transition:.25s}.pct{font-weight:900;color:var(--lime);min-width:44px;text-align:right}
+.section{scroll-margin-top:76px;margin:18px 0;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(180deg,rgba(18,34,56,.90),rgba(12,26,43,.94));box-shadow:var(--shadow);overflow:hidden}
+.section-head{padding:18px 18px 12px}.section-head h2{margin:0;font-size:1.35rem}.section-head p{margin:5px 0 0;color:var(--muted)}
+.section-body{padding:0 18px 18px}
+.exam-map{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.exam-box{border:1px solid var(--line);border-radius:16px;padding:14px;background:#0a1728}.exam-box b{display:block;font-size:1.15rem}.exam-box small{color:var(--muted)}
+.exam-box .pts{color:var(--amber);font-weight:900;font-size:.8rem}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:16px;background:#0a1728;padding:15px}.card h3{margin:0 0 6px;font-size:1rem}.card p{margin:4px 0;color:#dbe8f5}.muted{color:var(--muted)!important}
+.flash{border:1px solid var(--line);background:#0a1728;border-radius:16px;padding:15px;margin:10px 0;cursor:pointer;transition:.2s;user-select:none;-webkit-tap-highlight-color:transparent}.flash:active{transform:scale(.99)}.flash .q{font-weight:850}.flash .a{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed #35516e;color:#dfffc0}.flash.open .a{display:block}.tap{font-size:.78rem;color:var(--cyan);margin-top:7px}
+.tag{display:inline-flex;border-radius:999px;padding:4px 8px;font-size:.72rem;font-weight:900;border:1px solid var(--line);margin-right:5px}.tag.exam{color:#08111f;background:var(--lime);border-color:var(--lime)}.tag.pdf{color:var(--cyan);background:rgba(77,228,255,.08)}.tag.key{color:var(--amber);background:rgba(255,200,87,.08)}
+.callout{border-left:4px solid var(--cyan);padding:12px 13px;border-radius:12px;background:#0a1728;margin:12px 0}.callout strong{color:var(--cyan)}
+.topic{border:1px solid var(--line);border-radius:16px;background:#0a1728;margin:10px 0;overflow:hidden}.topic summary{list-style:none;padding:14px 15px;cursor:pointer;font-weight:900}.topic summary::-webkit-details-marker{display:none}.topic[open] summary{color:var(--lime);border-bottom:1px solid var(--line)}.topic .inside{padding:14px 15px}.topic ul{margin:8px 0;padding-left:20px}.topic li{margin:5px 0;color:#dce8f4}
+.code{background:#050b13;border:1px solid #1e3148;border-radius:14px;padding:13px;overflow:auto;font:500 .84rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e7f3ff;white-space:pre}
+.quiz-card{border:1px solid var(--line);border-radius:16px;background:#0a1728;padding:15px;margin:11px 0}.quiz-card .q{font-weight:900;margin-bottom:10px}.opt{display:block;border:1px solid var(--line);border-radius:12px;padding:11px;margin:8px 0;background:#0d1c2f;cursor:pointer}.opt.correct{border-color:var(--ok);background:rgba(103,232,165,.10)}.opt.wrong{border-color:var(--danger);background:rgba(255,107,124,.10)}
+.btn{border:1px solid var(--line);background:#0a1728;color:var(--ink);border-radius:13px;padding:10px 13px;font-weight:850;cursor:pointer}.btn.primary{background:var(--lime);color:#08111f;border-color:var(--lime)}.btn.cyan{background:var(--cyan);color:#08111f;border-color:var(--cyan)}.btn:active{transform:translateY(1px)}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.score{font-weight:950;font-size:1.3rem;color:var(--lime)}
+.bank-tools{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px}.bank-tools input,.bank-tools select{width:100%;background:#071322;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px}.bank-list{display:grid;gap:9px;max-height:520px;overflow:auto;padding-right:2px}.bank-item{border:1px solid var(--line);background:#091727;border-radius:14px;padding:12px}.bank-item b{display:block}.bank-item span{display:block;color:#cce0f1;margin-top:6px}.bank-item em{display:inline-block;margin-top:7px;font-style:normal;font-size:.72rem;color:var(--cyan)}
+.mini-test{display:none}.mini-test.show{display:block}.result{display:none;border:1px solid var(--line);border-radius:16px;padding:15px;background:#091727;margin-top:12px}.result.show{display:block}
+.bottom-nav{position:fixed;z-index:40;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:rgba(8,17,31,.9);border:1px solid var(--line);border-radius:18px;padding:7px;backdrop-filter:blur(18px);box-shadow:0 12px 30px rgba(0,0,0,.36)}.bottom-nav a{text-decoration:none;color:var(--muted);text-align:center;font-size:.72rem;font-weight:800;padding:8px 4px;border-radius:12px}.bottom-nav a span{display:block;font-size:1.05rem}.bottom-nav a:active{background:#12243b;color:var(--lime)}
+.donebar{display:flex;justify-content:flex-end;padding-top:8px}.done{border:1px solid var(--line);background:#081727;color:var(--muted);border-radius:999px;padding:7px 10px;font-weight:800}.done.on{color:#08111f;background:var(--ok);border-color:var(--ok)}
+.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:20px 0 10px}
+@media(max-width:720px){.exam-map,.card-grid{grid-template-columns:1fr}.hero-box{padding:20px}.section-head,.section-body{padding-left:14px;padding-right:14px}.bank-tools{grid-template-columns:1fr}.bank-list{max-height:440px}}
+@media(min-width:900px){.bottom-nav{display:none}.wrap{padding:0 18px}.section{margin:22px 0}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner"><div class="progress"><div id="prog"></div></div><div class="pct" id="pct">0%</div></div></div>
+<div class="wrap">
+  <header class="hero" id="inicio">
+    <div class="hero-box">
+      <div class="kicker">Análisis de Sistemas II · Primer parcial</div>
+      <h1>Estudia <span class="accent">sin aburrirte</span>.</h1>
+      <p>Esta guía pone primero lo que aparece en la foto del examen, después integra tus preguntas del PDF y al final te hace practicar. Está pensada para tocar botones cómodo desde iPhone y funcionar sin internet.</p>
+      <div class="pills"><span class="pill">📱 Mobile first</span><span class="pill">🧠 Flashcards</span><span class="pill">⚡ Quiz rápido</span><span class="pill">💾 Progreso local</span><span class="pill">🔌 Offline</span></div>
+    </div>
+  </header>
+
+  <section class="section" id="examen" data-track="examen">
+    <div class="section-head"><h2>🎯 1. Lo que manda el examen</h2><p>Tu foto vale más que cualquier resumen. Esta es la ruta principal.</p></div>
+    <div class="section-body">
+      <div class="exam-map">
+        <div class="exam-box"><span class="pts">SERIE I · 5 pts</span><b>Respuestas directas</b><small>5 preguntas puntuales.</small></div>
+        <div class="exam-box"><span class="pts">SERIE II · 5 pts</span><b>Desarrollar temas</b><small>Definición, idea central y ejemplo.</small></div>
+        <div class="exam-box"><span class="pts">SERIE III · 5 pts</span><b>Aplicar SRP</b><small>Detectar una clase con varias responsabilidades y separarla.</small></div>
+      </div>
+      <div class="callout"><strong>Estrategia:</strong> aprende corto para la Serie I, entiende lo suficiente para explicarlo en Serie II y practica código/criterio para Serie III.</div>
+      <div class="donebar"><button class="done" data-done="examen">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="serie1" data-track="serie1">
+    <div class="section-head"><h2>⚡ 2. Serie I — las 5 que te pueden caer</h2><p>Toca cada tarjeta: primero intenta responder sin verla.</p></div>
+    <div class="section-body" id="serie1cards"></div>
+  </section>
+
+  <section class="section" id="serie2" data-track="serie2">
+    <div class="section-head"><h2>🧩 3. Serie II — desarrolla sin escribir una biblia</h2><p>En cada tema tienes una respuesta compacta que sí puedes desarrollar en examen.</p></div>
+    <div class="section-body">
+      <details class="topic"><summary>1) Diseño arquitectónico en Ingeniería de Software</summary><div class="inside"><p>Representa la <b>estructura de datos y componentes</b> necesarios para construir el sistema. Considera el estilo arquitectónico, la estructura y propiedades de los componentes y sus interrelaciones.</p><ul><li><b>Importancia:</b> facilita comunicación, resalta decisiones tempranas y crea un modelo manejable del sistema.</li><li><b>Proceso:</b> diseño de datos → representación de la estructura → análisis de alternativas → elaboración de la arquitectura.</li></ul></div></details>
+      <details class="topic"><summary>2) UML</summary><div class="inside"><p>UML es un lenguaje de modelado que ayuda a representar visualmente la estructura y comportamiento de un sistema.</p><p><b>Para este parcial</b>, relaciona UML principalmente con diagramas que ayudan a documentar y comprender el sistema; en tus preguntas aparece especialmente el <b>diagrama de componentes UML</b>, que muestra componentes, interfaces, dependencias y estructura modular.</p></div></details>
+      <details class="topic"><summary>3) Metodología YOURDON</summary><div class="inside"><p>En tus preguntas se divide en tres aspectos:</p><ul><li><b>Ambiental:</b> entradas y salidas del sistema con su entorno; usa diagrama de contexto.</li><li><b>Comportamiento:</b> cómo el sistema procesa entradas para producir salidas; usa DFD y transición de estados.</li><li><b>Información:</b> persistencia de datos utilizados por los procesos; usa diagrama entidad–relación.</li></ul></div></details>
+      <details class="topic"><summary>4) Modelado de procesos</summary><div class="inside"><p><b>Modelo:</b> representación de una realidad que ayuda a organizar y documentar información de un sistema.</p><p><b>Modelar:</b> desarrollar una descripción lo más exacta posible del sistema y las actividades que se realizan en él.</p><p><b>Diagramar:</b> establecer una representación visual de procesos y subprocesos.</p></div></details>
+      <details class="topic"><summary>5) Análisis de sistemas</summary><div class="inside"><p>En tus preguntas aparece como el análisis de las <b>reglas del negocio</b> y de las <b>necesidades de soporte de información</b>. Primero se entiende el problema; después se diseña la solución.</p><p>Conecta bien esta idea con <b>espacio del problema</b> (formulación + análisis) y <b>espacio de la solución</b> (búsqueda + selección + diseño + implementación).</p></div></details>
+      <div class="donebar"><button class="done" data-done="serie2">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="srp" data-track="srp">
+    <div class="section-head"><h2>🛠️ 4. Serie III — SRP sin pánico</h2><p>Lo que debes ver: una clase hace demasiadas cosas y tiene varias razones para cambiar.</p></div>
+    <div class="section-body">
+      <span class="tag exam">EXAMEN</span><span class="tag key">SOLID · S</span>
+      <div class="code">class Pedido {
+  calcularTotal() { ... }
+  guardarEnBD() { ... }
+  generarFacturaPDF() { ... }
+  enviarCorreo() { ... }
+}</div>
+      <div class="callout"><strong>Qué dices:</strong> viola el Principio de Responsabilidad Única porque mezcla lógica del pedido, persistencia, generación de documentos y notificación; son responsabilidades con razones de cambio distintas.</div>
+      <h3>Una separación razonable</h3>
+      <div class="code">class Pedido {
+  calcularTotal() { ... }
+}
+class PedidoRepository {
+  guardar(pedido) { ... }
+}
+class FacturaPDF {
+  generar(pedido) { ... }
+}
+class Notificador {
+  enviarCorreo(pedido) { ... }
+}</div>
+      <div class="quiz-card" id="srpQuick"><div class="q">¿Cuál es la señal más clara de SRP?</div>
+        <label class="opt"><input type="radio" name="srpq" value="0"> La clase tiene muchos atributos.</label>
+        <label class="opt"><input type="radio" name="srpq" value="1"> La clase tiene varias responsabilidades y varias razones para cambiar.</label>
+        <label class="opt"><input type="radio" name="srpq" value="2"> La clase usa objetos.</label>
+        <button class="btn primary" onclick="checkSRP()">Comprobar</button><span id="srpMsg" class="muted"></span>
+      </div>
+      <div class="donebar"><button class="done" data-done="srp">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="banco" data-track="banco">
+    <div class="section-head"><h2>📚 5. Tus preguntas — banco rápido</h2><p>Están integradas desde tu PDF. Busca por palabra o filtra por tema.</p></div>
+    <div class="section-body">
+      <div class="bank-tools"><input id="search" placeholder="Ej: MVC, cohesión, SOA, capas..."><select id="filter"><option value="all">Todos los temas</option></select></div>
+      <div class="bank-list" id="bankList"></div>
+      <div class="row" style="margin-top:12px"><button class="btn cyan" id="randomBtn">🎲 Pregunta al azar</button><button class="btn" id="showAllBtn">Mostrar todo</button></div>
+      <div class="flash" id="randomCard" style="display:none"><div class="q" id="randomQ"></div><div class="a" id="randomA"></div><div class="tap">Toca para revelar respuesta</div></div>
+      <div class="donebar"><button class="done" data-done="banco">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="quiz" data-track="quiz">
+    <div class="section-head"><h2>🧪 6. Mini examen</h2><p>10 preguntas mezcladas. Sale distinto cada vez.</p></div>
+    <div class="section-body">
+      <div class="row"><button class="btn primary" id="startQuiz">Generar 10 preguntas</button><span class="score" id="score"></span></div>
+      <div id="quizArea" class="mini-test"></div><div id="result" class="result"></div>
+      <div class="donebar"><button class="done" data-done="quiz">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <section class="section" id="repaso" data-track="repaso">
+    <div class="section-head"><h2>🏁 7. Repaso de 2 minutos</h2><p>Si puedes decir esto sin mirar, vas bastante bien.</p></div>
+    <div class="section-body">
+      <div class="card-grid">
+        <div class="card"><h3>Ciclo moderno</h3><p>Comunicación → Planeación → Modelado → Construcción → Despliegue.</p></div>
+        <div class="card"><h3>POO</h3><p>Abstracción, relaciones, encapsulamiento, polimorfismo y herencia.</p></div>
+        <div class="card"><h3>Yourdon</h3><p>Ambiental, comportamiento e información.</p></div>
+        <div class="card"><h3>SRP</h3><p>Una responsabilidad coherente y una razón principal para cambiar.</p></div>
+        <div class="card"><h3>MVC</h3><p>Modelo: datos/operaciones · Vista: presentación · Controlador: interacción.</p></div>
+        <div class="card"><h3>Arquitectura 3 niveles</h3><p>Presentación · lógica de negocios · datos.</p></div>
+      </div>
+      <div class="donebar"><button class="done" data-done="repaso">Marcar visto</button></div>
+    </div>
+  </section>
+
+  <div class="footer">Guía interactiva AS II · hecha a partir de tu examen + tu PDF de preguntas. Diseño independiente del HTML de referencia.</div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="#examen"><span>🎯</span>Examen</a><a href="#serie1"><span>⚡</span>Directas</a><a href="#banco"><span>📚</span>Banco</a><a href="#quiz"><span>🧪</span>Prueba</a>
+</nav>
+
+<script>
+const serie1=[
+  {q:'1. ¿Cuáles son las fases del ciclo de vida del software moderno?',a:'Comunicación, Planeación, Modelado, Construcción y Despliegue.'},
+  {q:'2. ¿Cuáles son los pilares de la programación orientada a objetos?',a:'Abstracción, Relaciones, Encapsulamiento, Polimorfismo y Herencia.'},
+  {q:'3. Mencione 3 patrones arquitectónicos.',a:'Una respuesta válida usando tus apuntes: Capas, MVC y Cliente–Servidor. También aparecen Intermediario y Multicapa.'},
+  {q:'4. ¿Qué significa MVC?',a:'Modelo–Vista–Controlador. Modelo maneja datos y operaciones; Vista presenta los datos; Controlador dirige la interacción del usuario.'},
+  {q:'5. ¿En qué etapas se realiza el diseño arquitectónico?',a:'Diseño de datos → representación de la estructura arquitectónica → análisis de alternativas → elaboración de la arquitectura.'}
+];
+const c=document.getElementById('serie1cards');serie1.forEach((x,i)=>{const d=document.createElement('div');d.className='flash';d.innerHTML=`<span class="tag exam">SERIE I</span><div class="q">${x.q}</div><div class="a">${x.a}</div><div class="tap">Toca para revelar</div>`;d.onclick=()=>d.classList.toggle('open');c.appendChild(d)});c.insertAdjacentHTML('beforeend','<div class="donebar"><button class="done" data-done="serie1">Marcar visto</button></div>');
+
+const bank=[
+['Ciclo de vida','¿Cuáles son las principales etapas o ciclo de vida del modelo en cascada?','Análisis, Diseño, Codificación, Integración y Mantenimiento.'],
+['RAMSS','¿Cuáles son las fases del ciclo de vida RAMSS?','Conceptual, Proyecto, Desarrollo, Producción, Operación y Retirada.'],
+['RAMSS','¿Qué valores de mérito sistémicos pertenecen al propio sistema?','Fiabilidad, Disponibilidad y Mantenibilidad.'],
+['RAMSS','¿Qué valor de mérito sistémico representa la interrelación entre sistema y utilizador?','Soportabilidad.'],
+['RAMSS','¿Qué valor de mérito sistémico representa la interrelación entre sistema y entorno?','Seguridad.'],
+['RAMSS','¿Qué fase realiza el análisis preliminar del sistema y riesgos de obtención?','Fase Conceptual.'],
+['RAMSS','¿En qué fase el sistema queda definido mediante su proyecto y especificación funcional?','Proyecto.'],
+['RAMSS','¿En qué fase el sistema queda completamente desarrollado con especificación física y planos?','Desarrollo.'],
+['RAMSS','¿En qué fase se obtiene el sistema y su apoyo logístico?','Producción.'],
+['RAMSS','¿En qué fase se da de baja, desmonta, reutiliza y destruye lo desechable?','Retirada.'],
+['Diseño','¿Qué es diseño?','Actividad creativa que tiene por fin proyectar objetos útiles y estéticos.'],
+['Diseño','¿Qué es objeto?','Cosa material inanimada, generalmente pequeña o mediana, percibida por los sentidos.'],
+['Diseño','¿Qué es proceso?','Conjunto de fases sucesivas de un fenómeno o hecho complejo.'],
+['Sistemas','¿Qué es sistema?','Conjunto de entidades u objetos relacionados entre sí, formando una estructura con un fin común.'],
+['Sistemas','¿Qué es un sistema de información?','Sistema cuya finalidad es procesar datos de entrada para producir información oportuna, relevante y confiable.'],
+['Análisis','¿Qué es análisis de SI?','Análisis de las reglas del negocio y de las necesidades de soporte de información.'],
+['Diseño','¿Qué es diseño de SI?','Especificación de procedimientos de trabajo y de la plataforma tecnológica sobre la que se implementará el SI.'],
+['Ciclo de vida','¿Cuál es el ciclo de vida del software moderno?','Comunicación, Planeación, Modelado, Construcción y Despliegue.'],
+['Problema/Solución','¿Cuáles son las partes del espacio del problema?','Formulación del problema y Análisis del problema.'],
+['Problema/Solución','¿Cuáles son las partes del espacio de la solución?','Búsqueda, Selección, Diseño e Implementación.'],
+['Yourdon','¿Cuáles son los 3 aspectos de la metodología Yourdon?','Ambiental, Comportamiento e Información.'],
+['Yourdon','¿Qué es el aspecto ambiental?','Define entradas y salidas del sistema con su entorno; se representa con diagrama de contexto.'],
+['Yourdon','¿Qué es el aspecto de comportamiento?','Define el comportamiento interno para procesar entradas en salidas; usa DFD y diagrama de transición de estados.'],
+['Yourdon','¿Qué es el aspecto de información?','Define la persistencia de datos usados por los procesos; usa diagrama entidad–relación.'],
+['Modelado','¿Qué es un modelo?','Representación de una realidad que permite organizar y documentar información sobre un sistema.'],
+['Modelado','¿Qué es modelar?','Desarrollar una descripción lo más exacta posible de un sistema y de las actividades realizadas en él.'],
+['Modelado','¿Qué es diagramar?','Establecer una representación visual de los procesos y subprocesos.'],
+['POO','¿Cuáles son los pilares de la orientación a objetos?','Abstracción, Relaciones, Encapsulamiento, Polimorfismo y Herencia.'],
+['POO','¿Qué es abstracción?','Ayuda a trabajar con cosas complejas enfocándose en lo importante e ignorando lo no importante.'],
+['POO','¿Qué es encapsulamiento?','Los atributos propios de un objeto no deben ser visibles directamente desde otros objetos.'],
+['POO','¿Cuáles son dos tipos de relaciones?','Asociación y Agregación.'],
+['POO','¿Qué es asociación?','Conexión entre dos clases que representa comunicación; puede ser unidireccional o bidireccional.'],
+['POO','¿Qué es agregación?','Forma especial de asociación donde un todo se relaciona con sus partes.'],
+['POO','¿Qué es herencia?','Relación entre clases donde una clase comparte estructura y comportamiento definido en otra.'],
+['SOLID','¿Qué establece Single Responsibility?','Cada clase debe tener una responsabilidad única y concreta; una sola razón principal para cambiar.'],
+['SOLID','¿Qué establece Open/Closed?','El código debe estar abierto para extensión y cerrado para modificación; se apoya en buen diseño, herencia e interfaces.'],
+['SOLID','¿Qué establece Liskov Substitution?','Una clase derivada debe poder sustituir a la clase base sin provocar mal funcionamiento.'],
+['SOLID','¿Qué establece Interface Segregation?','Ninguna clase debe estar obligada a implementar métodos que no necesita.'],
+['SOLID','¿Qué busca Dependency Inversion?','Evitar alto acoplamiento haciendo que la lógica dependa de abstracciones y no de detalles concretos.'],
+['SOLID','¿Ventajas de usar SOLID?','Mantenimiento más fácil y añadir funcionalidades más sencillamente.'],
+['Arquitectura','¿Qué representa el diseño arquitectónico?','La estructura de datos y componentes del programa requeridos para construir un sistema basado en computadora.'],
+['Arquitectura','¿Qué considera el diseño arquitectónico?','Estilo de arquitectura, estructura y propiedades de componentes e interrelaciones entre ellos.'],
+['Arquitectura','¿Quién puede realizar el diseño arquitectónico?','Ingeniero de software.'],
+['Arquitectura','¿Quién crea la arquitectura de los datos?','Diseñador de BD o DW.'],
+['Arquitectura','¿Quién selecciona el estilo arquitectónico?','Arquitecto del sistema.'],
+['Arquitectura','¿Tres razones por las que es importante la arquitectura?','Comunicación entre las partes, resalta primeras decisiones y constituye un modelo relativamente pequeño.'],
+['Arquitectura','¿Cuáles son los pasos del diseño arquitectónico?','Diseño de datos, representación de estructura, análisis de alternativas y elaboración de la arquitectura.'],
+['Arquitectura','¿Qué son patrones arquitectónicos?','Decisiones de diseño arquitectónico aplicables a un problema de diseño recurrente y parametrizado.'],
+['Arquitectura','¿Cómo se clasifican los patrones arquitectónicos?','Patrones de módulos, patrones C&C y patrones de asignación.'],
+['Arquitectura','¿Qué son patrones de módulos?','Decisiones sobre cómo el sistema debe estructurarse, por ejemplo en capas o unidades de datos.'],
+['Arquitectura','¿Qué son patrones C&C?','Decisiones asociadas a estructuras considerando aspectos en tiempo de ejecución.'],
+['Arquitectura','¿Qué son patrones de asignación?','Decisiones sobre cómo el sistema se liga a estructuras no software, como CPU.'],
+['Arquitectura','¿Patrón de módulos más mencionado?','Capas.'],
+['Arquitectura','¿Ejemplos de patrones C&C?','Intermediario, MVC y Cliente–Servidor.'],
+['Arquitectura','¿Ejemplo de patrón de asignación?','Multicapa.'],
+['Arquitectura','¿Qué son estilos arquitectónicos?','Diseño de la aplicación a alto nivel de abstracción; reglas que identifican clases de componentes y conectores.'],
+['Arquitectura','¿Ejemplos de estilos arquitectónicos?','Flujo de datos, Centrado en datos y Heterogéneos.'],
+['MVC','¿Qué significa MVC?','Modelo de Vista del Controlador / Modelo–Vista–Controlador.'],
+['MVC','¿Qué hace cada parte de MVC?','Modelo: datos y operaciones. Vista: presentación al usuario. Controlador: interacción del usuario.'],
+['Capas','¿Qué es arquitectura en capas?','Define varias capas, cada una ejecutando operaciones que se aproximan progresivamente al conjunto de instrucciones de máquina.'],
+['Capas','¿Para qué son las capas externa, interna e intermedias?','Externa: interfaz de usuario. Interna: interfaz con SO. Intermedias: utilerías y funciones de aplicación.'],
+['Capas','¿Cómo se puede organizar un sistema de software?','Capa de Presentación, Negocios y Persistencia.'],
+['ERP','¿Qué significa ERP?','Planificación de Recursos Empresariales.'],
+['3 niveles','¿Cuáles son los 3 niveles?','Presentación, Lógica de Negocios y Datos.'],
+['3 niveles','¿Ventajas de una arquitectura de 3 niveles?','Escalabilidad y flexibilidad.'],
+['N-niveles','¿Ventajas de N-niveles?','Bajo costo y alta flexibilidad.'],
+['SOA','¿Qué significa SOA?','Arquitectura Orientada a Servicios.'],
+['SOA','¿Requerimientos arquitectónicos de SOA?','Heterogeneidad, Escalabilidad y Disponibilidad.'],
+['SOA','¿Qué hace la metodología SOA?','Crea servicios individuales sin asociación o débilmente acoplados entre sí.'],
+['SOA','¿Qué es una arquitectura orientada a servicios?','Grupo de servicios a los que se puede llamar para que provean funciones específicas.'],
+['SOA','¿Requisitos de los servicios para establecer SOA?','Modulares, reutilizables, trabajar en conjunto, clasificarse, supervisados y usar estándares de la industria.'],
+['Datos','¿Qué es una arquitectura centrada en datos?','Arquitectura con un almacenamiento central al que otros componentes acceden para actualizar, agregar, eliminar o modificar datos.'],
+['Datos','¿Cuándo se usa arquitectura de repositorio?','Cuando grandes volúmenes de información deben almacenarse durante mucho tiempo.'],
+['Patrones','¿Qué es lenguaje de patrón?','Conjunto de patrones relacionados, descritos con formato estandarizado, que colaboran para resolver problemas de un dominio.'],
+['Patrones','¿Qué es repositorio de patrones?','Índice de patrones con vínculos que ayudan a entender colaboraciones entre ellos.'],
+['Componentes','¿Qué es diseño a nivel de componentes?','Diseño que define estructuras de datos, algoritmos, interfaces y mecanismos de comunicación asignados a cada componente.'],
+['Componentes','¿Por qué es importante el diseño a nivel de componentes?','Permite revisar detalles del diseño antes de desarrollar el software.'],
+['Componentes','¿Qué es un componente?','Bloque modular, desplegable y sustituible de un sistema que incluye implementación y expone interfaces.'],
+['Cohesión','¿Qué es cohesión?','Un componente o clase contiene atributos y operaciones estrechamente relacionados entre sí y con la propia clase.'],
+['Cohesión','¿Tipos de cohesión?','Funcional, de Capa y de Comunicación.'],
+['Cohesión','¿Qué es cohesión funcional?','Ocurre cuando un componente realiza un cálculo y devuelve el resultado.'],
+['Cohesión','¿Qué es cohesión de capa?','Una capa superior accede a servicios de una inferior, pero la inferior no accede a las superiores.'],
+['Cohesión','¿Qué es cohesión de comunicación?','Operaciones que acceden a los mismos datos se definen dentro de una clase.'],
+['Diseño componentes','¿Qué sucede después del análisis de requerimientos?','Diseño.'],
+['Diseño componentes','¿Objetivo del diseño de sistemas?','Traducir los requerimientos en una solución técnica.'],
+['Diseño componentes','¿En qué 2 niveles se divide el diseño de sistemas?','Diseño arquitectónico y Diseño de componentes.'],
+['Diseño componentes','¿Diferencia entre diseño arquitectónico y de componentes?','El arquitectónico define tecnologías y patrones; el de componentes define interfaces y lógica.'],
+['Diseño componentes','¿Ejemplos de componentes comunes?','Autenticación, Reportes y GUI.'],
+['UML','¿Qué muestra un diagrama de componentes UML?','Componentes y relaciones; incluye interfaces y dependencias y visualiza la estructura modular.'],
+['Diseño componentes','¿Principios de buen diseño de componentes?','Reusabilidad, Encapsulamiento y Modularidad.'],
+['Prototipado','¿Herramientas modernas para prototipado?','Firebase y V0.']
+];
+
+const filter=document.getElementById('filter');[...new Set(bank.map(x=>x[0]))].sort().forEach(t=>filter.insertAdjacentHTML('beforeend',`<option>${t}</option>`));
+function renderBank(limit=20){const q=document.getElementById('search').value.toLowerCase().trim();const f=filter.value;const rows=bank.filter(x=>(f==='all'||x[0]===f)&&(!q||(x[1]+' '+x[2]+' '+x[0]).toLowerCase().includes(q)));const box=document.getElementById('bankList');box.innerHTML='';rows.slice(0,limit).forEach(x=>box.insertAdjacentHTML('beforeend',`<div class="bank-item"><b>${x[1]}</b><span>${x[2]}</span><em>${x[0]}</em></div>`));if(!rows.length)box.innerHTML='<div class="muted">No encontré coincidencias.</div>'; if(rows.length>limit) box.insertAdjacentHTML('beforeend',`<div class="muted">Mostrando ${limit} de ${rows.length}. Usa búsqueda/filtro o “Mostrar todo”.</div>`)}
+renderBank();document.getElementById('search').oninput=()=>renderBank();filter.onchange=()=>renderBank();document.getElementById('showAllBtn').onclick=()=>renderBank(999);
+const randomCard=document.getElementById('randomCard');randomCard.onclick=()=>randomCard.classList.toggle('open');document.getElementById('randomBtn').onclick=()=>{const x=bank[Math.floor(Math.random()*bank.length)];document.getElementById('randomQ').textContent=x[1];document.getElementById('randomA').textContent=x[2];randomCard.classList.remove('open');randomCard.style.display='block';randomCard.scrollIntoView({behavior:'smooth',block:'center'})};
+
+function checkSRP(){const sel=document.querySelector('input[name="srpq"]:checked');document.querySelectorAll('#srpQuick .opt').forEach((o,i)=>{o.classList.remove('correct','wrong');if(i===1)o.classList.add('correct')});if(sel&&+sel.value!==1)sel.closest('.opt').classList.add('wrong');document.getElementById('srpMsg').textContent=sel?(+sel.value===1?' ✓ Correcto':' Revisa: la clave son las razones de cambio'):' Elige una opción';}
+
+const quizPool=[
+['¿Cuál es el ciclo de vida del software moderno?',['Comunicación, Planeación, Modelado, Construcción, Despliegue','Análisis, Diseño, Producción, Retirada','Modelo, Vista, Controlador'],0],
+['¿Cuáles son los tres aspectos de Yourdon?',['Ambiental, Comportamiento, Información','Presentación, Negocios, Datos','Modelo, Vista, Controlador'],0],
+['¿Qué significa MVC?',['Modelo–Vista–Controlador','Módulo–Vista–Conector','Modelo–Variable–Clase'],0],
+['Una clase calcula, guarda y envía correo. ¿Qué principio viola primero?',['SRP','Liskov','Herencia'],0],
+['¿Qué busca Open/Closed?',['Extender sin modificar continuamente lo estable','Una clase con un solo método','Eliminar interfaces'],0],
+['¿Qué principio evita métodos “No soportado” en interfaces enormes?',['Interface Segregation','Liskov','DRY'],0],
+['¿Qué principio dice que un hijo debe poder sustituir al padre?',['Liskov Substitution','Dependency Inversion','KISS'],0],
+['¿Qué significa SOA?',['Arquitectura Orientada a Servicios','Sistema Operativo Avanzado','Servicio Orientado a Aplicaciones'],0],
+['¿Cuáles son los 3 niveles?',['Presentación, Lógica de Negocios, Datos','Entrada, Proceso, Salida','Modelo, Vista, Controlador'],0],
+['¿Qué es cohesión?',['Atributos y operaciones estrechamente relacionados','Separar todas las clases','Usar muchas capas'],0],
+['¿Qué patrón separa presentación e interacción de datos?',['MVC','Repositorio','Multicapa'],0],
+['¿Qué es agregación?',['Relación todo–parte','Sustitución de clase base','Separación de interfaz'],0],
+['¿Qué es análisis de SI?',['Análisis de reglas del negocio y necesidades de información','Programar interfaces','Solo diseñar BD'],0],
+['¿Qué es diagramar?',['Representación visual de procesos y subprocesos','Compilar código','Crear tablas'],0],
+['¿Cuál NO es una ventaja anotada de 3 niveles?',['Bajo costo','Escalabilidad','Flexibilidad'],0],
+['¿Cuál es un ejemplo de patrón C&C?',['Cliente–Servidor','Capas únicamente como módulo','Multicapa como asignación'],0],
+['¿Qué hace el Modelo en MVC?',['Maneja datos y operaciones','Solo dibuja la interfaz','Dirige interacción del usuario'],0],
+['¿Qué hace el Controlador en MVC?',['Dirige la interacción del usuario','Guarda exclusivamente datos','Define colores'],0],
+['¿Qué es un componente?',['Bloque modular, desplegable y sustituible con interfaces','Solo una tabla','Una pantalla'],0],
+['¿Cuál es el objetivo del diseño de sistemas?',['Traducir requerimientos en solución técnica','Eliminar requerimientos','Solo documentar'],0]
+];
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startQuiz(){const area=document.getElementById('quizArea');const set=shuffle(quizPool).slice(0,10);area.innerHTML='';area.classList.add('show');document.getElementById('result').classList.remove('show');document.getElementById('score').textContent='';set.forEach((x,i)=>{const order=shuffle(x[1].map((v,j)=>({v,j})));const d=document.createElement('div');d.className='quiz-card';d.dataset.ans=0;d.dataset.correct=order.findIndex(o=>o.j===x[2]);d.innerHTML=`<div class="q">${i+1}. ${x[0]}</div>${order.map((o,j)=>`<label class="opt"><input type="radio" name="qq${i}" value="${j}"> ${o.v}</label>`).join('')}`;area.appendChild(d)});const b=document.createElement('button');b.className='btn primary';b.textContent='Calificar';b.onclick=gradeQuiz;area.appendChild(b);area.scrollIntoView({behavior:'smooth',block:'start'})}
+function gradeQuiz(){let ok=0,total=0;document.querySelectorAll('#quizArea .quiz-card').forEach((d,i)=>{total++;const c=+d.dataset.correct;const s=d.querySelector('input:checked');d.querySelectorAll('.opt').forEach((o,j)=>{o.classList.remove('correct','wrong');if(j===c)o.classList.add('correct')});if(s&&+s.value===c)ok++;else if(s)s.closest('.opt').classList.add('wrong')});const pct=Math.round(ok/total*100);document.getElementById('score').textContent=`${ok}/${total}`;const r=document.getElementById('result');r.classList.add('show');r.innerHTML=`<b>${pct>=80?'🔥 Vas bien':'📌 Hay que reforzar'}</b><p>Resultado: <strong>${ok}/${total} (${pct}%)</strong>. ${pct>=80?'Repite una vez más y luego intenta responder sin ver tarjetas.':'Vuelve a Serie I + SRP y genera otro mini examen.'}</p>`;r.scrollIntoView({behavior:'smooth',block:'center'})}
+document.getElementById('startQuiz').onclick=startQuiz;
+
+const tracks=['examen','serie1','serie2','srp','banco','quiz','repaso'];
+function updateProgress(){const n=tracks.filter(k=>localStorage.getItem('asii_'+k)==='1').length;const p=Math.round(n/tracks.length*100);document.getElementById('prog').style.width=p+'%';document.getElementById('pct').textContent=p+'%'}
+function bindDone(){document.querySelectorAll('.done').forEach(b=>{const key='asii_'+b.dataset.done;const paint=()=>{const on=localStorage.getItem(key)==='1';b.classList.toggle('on',on);b.textContent=on?'✓ Visto':'Marcar visto'};b.onclick=()=>{localStorage.setItem(key,localStorage.getItem(key)==='1'?'0':'1');paint();updateProgress()};paint()});updateProgress()}
+bindDone();
+</script>
+</body>
+</html>
